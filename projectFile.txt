@@ -1,0 +1,82 @@
+1.Initialize the Project:
+
+1.Created a new project directory.
+Initialized a new Node.js project using npm init.
+Created a .env file to store environment variables.
+
+
+
+
+2.Installed necessary dependencies using npm install:
+bcrypt
+cookie-parser
+dotenv
+express
+express-validator
+jsonwebtoken
+mongoose
+morgan
+
+
+
+
+
+Setup Configuration:
+
+3.Created a configuration file config.js to load environment variables and freeze the configuration object.
+
+
+
+Setup Server:
+
+4.In config.js file You are loading environment variables using dotenv, storing them in a frozen config object, and exporting it to ensure consistent and secure access to configuration values across your application.
+
+Created a server file server.js to initialize the Express app, create an HTTP server, and connect to the MongoDB database.
+
+
+
+
+
+Setup Express App:
+
+5.Created an Express app in app.js with middleware for logging, parsing JSON, URL-encoded data, and cookies.
+Set up routing for user-related endpoints.
+
+
+
+
+Setup Database Connection:
+
+6.Created a database connection file db.js to connect to MongoDB using Mongoose.
+
+
+
+
+Create User Model:
+
+7.Created a user model in user.js with schema definitions and methods for password hashing, comparison, and token generation with using userSchema static and methods function
+
+*note:Think of statics as functions for all users (User model) and methods as functions for one user (user instance).
+statics → Used for model-level functions (called on the model).
+Example: User.findByEmail(email) → Find a user by email.
+
+methods → Used for instance-level functions (called on a document).
+Example: user.getFullName() → Get full name of a specific user.
+
+
+
+
+Create User Controller:
+
+8.Created a user controller in user.controller.js with a function to handle user registration.
+Setup User Routes:
+
+
+
+9.Created user routes in user.routes.js to handle user registration with validation using express-validator.
+install express-validation and `import {body} from express-validator` "In body we get data that user submit it"
+
+then write validation code where we write a code of middleware 
+
+
+10.now when get error message (example: username must be a string ) that can be That can be received on the controller.js file For accessing the message we want to import validateresult from express-validator 
