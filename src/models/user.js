@@ -75,7 +75,7 @@ userSchema.methods.generateToken = function(){
         },
         config.JWT_SECRET,
         {
-            expiresIn: config.JWT_EXPIRE_IN
+            expiresIn: config.JWT_EXPIRE
         })
         
         return token

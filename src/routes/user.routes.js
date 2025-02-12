@@ -1,31 +1,19 @@
 import { Router } from "express";
 const router = Router();
-import * as userController from "../controllers/user.controller.js"
-import { body } from "express-validator"
-router.post("/register",
-    body('username')
-    .isString()
-    .withMessage('username must be a string')
-    .isLength({ min: 3 })
-    .withMessage('username must be at least 3 characters long')
-    .isString({
-        lowercase: true
-    })
-    .withMessage('username must be in lowercase'),
-
-    body('email')
-    .isEmail()
-    .withMessage('Invalid email'),
-
-    body('password')
-    .isString()
-    .withMessage('password must be a string')
-    .isLength({ min: 8 })
-    .withMessage('password must be at least 8 characters long'),
-
-     userController.createUserController)
+import * as userController from "../controllers/user.controller.js";
+import * as userMeddleware from "../middlewares/user.middleware.js";
 
 
 
+router.post(
+  "/register",
+  userMeddleware.registerUserValidation,
+  userController.createUserController
+);
 
+
+
+router.post("/login",
+   userMeddleware.loginUserValidation,
+    userController.loginUserController);
 export default router;

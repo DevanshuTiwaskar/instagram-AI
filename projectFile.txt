@@ -79,4 +79,70 @@ install express-validation and `import {body} from express-validator` "In body w
 then write validation code where we write a code of middleware 
 
 
+*note:.isString({ lowercase: true }) this well not work so we want use
+ ".costom((value)=> value === value.toLowerCase) "
+
 10.now when get error message (example: username must be a string ) that can be That can be received on the controller.js file For accessing the message we want to import validateresult from express-validator 
+
+
+11.create middleware folder in it create user.middleware.js file for validateresult code for simiply the code base god best look more readable
+
+
+
+creating a user
+12.for this we want to make service folder to code for user creation and call in user.controller file by do this controller look more readable
+
+IN userService.js file we want create user first of all create function name createuser in that function add some 
+condition whether user enter the (username, email, password) and also Check whether user is existent or not if existed then it will show error otherwise register user 
+
+then create a hashedpassword with using static function we make in userModel simiply call it 
+
+then create user with hashedpassword and save it and 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+*delete user._doc.password // This line is used to delete the password from the user object, so it is not sent to the frontend
+Why is this necessary?
+Security
+
+User passwords should never be exposed in API responses, even if they are hashed.
+If sent, an attacker might exploit it, increasing security risks.
+Frontend doesn't need it
+
+The password is only needed for authentication and should not be stored or displayed in the frontend.
+Prevents data leaks
+
+Avoids accidental exposure in logs, browser storage, or API responses.
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ and then return user  
+
+Now in userController.js file import userService.js file create a user using
+ userService.createUser (createUser functin come from userService.js) 
+ then create token 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+*note*
+ The reason we are creating the user inside the service file (userService.js) but still calling it inside the controller file (userController.js)?
+ =>
+* Service (userService.js): Handles business logic (e.g., checking if the user exists, hashing passwords, and saving data).
+
+* Controller (userController.js): Handles HTTP requests and responses, calling the service to perform actions.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+create a function loginUserController in that you should check user validationResult from import { validateresult } from express-validation then call the function loginUser that has been create in userService
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Now to show user profile first all you want create isLoggin middleware using redis.io
+
+Q.why we use redis.io?
+=>Redis is an in-memory data store, meaning that data is stored in RAM instead of on a disk. This results in extremely fast read and write operations, making it ideal for tracking session data like user login status in real time.
+
+
