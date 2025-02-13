@@ -23,34 +23,25 @@ export const createUser = async ({ username, email, password }) => {
 
   await user.save();
 
-  delete user._doc.password // This line is used to delete the password from the user object, so it is not sent to the frontend. 
-  
-  return user
-  
-
-
-};
-
-
-
-export const loginUser = async ({email,password})=>{
-  
-
-  const user = await userModel.findOne({ email })
-
-  if (!user) {
-      throw new Error("Invalid Credentials")
-  }
-
-  const isPasswordMatched = await user.comparePassword(password)
-
-
-  if(!isPasswordMatched){
-      throw new Error("Invalid Credentials")
-  }
-  
-  delete user._doc.password; 
-
+  delete user._doc.password; // This line is used to delete the password from the user object, so it is not sent to the frontend.
 
   return user;
-}
+};
+
+export const loginUser = async ({ email, password }) => {
+  const user = await userModel.findOne({ email });
+
+  if (!user) {
+    throw new Error("Invalid Credentials");
+  }
+
+  const isPasswordMatched = await user.comparePassword(password);
+
+  if (!isPasswordMatched) {
+    throw new Error("Invalid Credentials");
+  }
+
+  delete user._doc.password;
+
+  return user;
+};

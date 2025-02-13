@@ -146,3 +146,26 @@ Q.why we use redis.io?
 =>Redis is an in-memory data store, meaning that data is stored in RAM instead of on a disk. This results in extremely fast read and write operations, making it ideal for tracking session data like user login status in real time.
 
 
+setup redis and get redis_host,redis_port and redis_password  from redis after geting set in env file then in config file 
+now make in services folder create redis.service.js file
+create new redis and pass all credensial in it and after that connect the redis
+
+
+Now create a authUser middleware for to get token data and set in redis 
+
+if user not found find in mongodb then set redis
+
+
+
+
+
+
+
+console.log(req.tokenData) => {
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2FiMjk1NTExODU5YmU4MDNiZWRkYzkiLCJ1c2VybmFtZSI6InRlc3QyIiwiZW1haWwiOiJ0ZXN0MkB0ZXN0LmNvbSIsImlhdCI6MTczOTM2MTA3MiwiZXhwIjoxNzM5NDQ3NDcyfQ.Wa0ecFTOc30AX2g7gmmN1qLu1ah-6VUfAM8Jr0Ci3WA',
+  _id: '67ab295511859be803beddc9',
+  username: 'test2',
+  email: 'test2@test.com',
+  iat: 1739361072,
+  exp: 1739447472
+}
