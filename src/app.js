@@ -1,9 +1,11 @@
 
 import morgan from 'morgan'
 import express from 'express'
-import userRoutes from './routes/user.routes.js'
 import cookieParser from 'cookie-parser'
 
+import userRoutes from './routes/user.routes.js'
+import aiRouter  from './routes/ai.routes.js'
+import postRouter from './routes/post.routes.js'
 
 const app = express()
 
@@ -16,6 +18,8 @@ app.use(cookieParser())
 
 
 
-app.use('/users',userRoutes)
+app.use('/users',userRoutes);
+app.use('/ai',aiRouter)
+app.use('/posts',postRouter)
 
 export default app;
