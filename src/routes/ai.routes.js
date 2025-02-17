@@ -15,19 +15,7 @@ router.get('/', async(req,res)=>{
 })
 
 
-export const generateCationFromImageBuffer = async (imageBuffer) =>{
-    const result = await model.generateContent([
-        {
-            inlineData: {
-                data: Buffer.from(imageResp).toString("base64"),
-                mimeType: "image/jpeg",
-            },
-        },
-        'Caption this image.',
-    ]);
 
-    return result.response.text()
-}
 
 
 

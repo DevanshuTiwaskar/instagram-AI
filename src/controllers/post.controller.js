@@ -1,4 +1,4 @@
-import { generateCationFromImageBuffer } from '../routes/ai.routes.js'
+import { generateCationFromImageBuffer } from '../services/ai.service.js'
 
 
 export const createPost = async (req, res, next)=>{
