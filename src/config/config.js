@@ -11,6 +11,9 @@ const _config = {
   REDIS_PORT: process.env.REDIS_PORT,
   REDIS_PASSWORD: process.env.REDIS_PASSWORD,
   GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+  CLOUD_NAME: process.env.CLOUD_NAME,
+  API_KEY: process.env.API_KEY,
+  API_SERCRET: process.env.API_SERCRET
 };
 
 //why we freeze the object?beacuse we don't want to change the configuration values in the application.

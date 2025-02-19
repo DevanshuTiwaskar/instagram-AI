@@ -6,7 +6,7 @@ const postSchema = new mongoose.Schema({
         type:String,
     },
     media:{
-        type:String,
+        type:Object,
         required: [true,"Please provide a media"],
     },
     author:{
@@ -17,6 +17,7 @@ const postSchema = new mongoose.Schema({
     },
 
  })
+
 
 
 //this static function is used to get all the post of the author
@@ -51,3 +52,8 @@ postSchema.methods.setRecentPost = async (limit)=>{
     
     return post
 }
+
+
+const postModel = mongoose.model('post',postSchema)
+
+export default postModel

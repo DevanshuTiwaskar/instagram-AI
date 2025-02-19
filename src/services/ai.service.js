@@ -16,17 +16,16 @@ const model = genAI.getGenerativeModel({
          sure that your captions are going to stand out in people's feeds.
          
          you always try to  write is consice way, and you want to make sure
+         that you cation are going to stand out in people's feeds.
+
          
+         you always try to write in consice way, and you want to make sure
+         that your caption is going to be easy to read and understand .
 
+        Just give me a single caption for the image i provide you 
 
-Just give me a single caption for the imane
+        try not to write lengthy and make cation under 20 words
 
-
-M
-
-
-you always try to write in consice way, and you want to make sure
-that your caption is going to be easy to read and understand.
      `
 });
 
