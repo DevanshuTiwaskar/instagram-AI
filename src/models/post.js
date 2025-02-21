@@ -15,6 +15,10 @@ const postSchema = new mongoose.Schema({
         required: [true,"Please provide an author"],
 
     },
+    likesCount:{
+        type:Number,
+        default:0
+    }
 
  })
 
@@ -52,6 +56,19 @@ postSchema.methods.setRecentPost = async (limit)=>{
     
     return post
 }
+
+
+postSchema.statics.isValidPostId = async(postId)=>{
+    console.log(postId)
+    if(!postId){
+        throw new Error("post is required");  
+    }
+
+    const isValidPostId = mongoose.Types.ObjectId.isValid(postId)
+
+    return isValidPostId;
+}
+
 
 
 const postModel = mongoose.model('post',postSchema)
