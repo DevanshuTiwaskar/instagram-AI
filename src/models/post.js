@@ -69,7 +69,7 @@ postSchema.statics.isValidPostId = async(postId)=>{
     return isValidPostId;
 }
 
-
+postSchema.method.updateLikesCount = as
 
 const postModel = mongoose.model('post',postSchema)
 

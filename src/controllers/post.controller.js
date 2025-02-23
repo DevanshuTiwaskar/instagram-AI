@@ -68,6 +68,8 @@ export const likePost = async (req,res,next)=>{
         })
 
 
+        await post.updateLikesCount()
+
         return res.status(200).json({message:'Post liked'})
 
     } catch (error) {

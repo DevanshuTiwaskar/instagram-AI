@@ -52,7 +52,7 @@ export const authUser = async (req, res, next) => {
     }
 
     const decoded = userModel.verifyToken(token); //here we get all genareted data which is storge in a token
-
+     console.log(decoded)
     let user = await redis.get(`user:${decoded._id}`); // we genareted id in token
 
     if (user) {
