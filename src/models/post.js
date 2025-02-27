@@ -1,76 +1,116 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 
-const postSchema = new mongoose.Schema({ 
-    caption:{
-        type:String,
-    },
-    media:{
-        type:Object,
-        required: [true,"Please provide a media"],
-    },
-    author:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
-        required: [true,"Please provide an author"],
 
+const postSchema = new mongoose.Schema({
+    caption: {
+        type: String,
     },
-    likesCount:{
-        type:Number,
-        default:0
+    media: {
+        type: Object,
+        required: [ true, 'Media is required' ],
+    },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+        required: [ true, 'Author is required' ],
+    },
+    likesCount: {
+        type: Number,
+        default: 0
+    },
+    commentsCount: {
+        type: Number,
+        default: 0
+    }
+},
+    {
+        timestamps: true,
+    }
+)
+
+
+postSchema.statics.getAuthorPosts = async function (authorId) {
+
+    if (!authorId) {
+        throw new Error("Author is required")
     }
 
- })
+    const posts = await this.find({
+        author: authorId
+    })
 
+    return posts;
 
+}
 
-//this static function is used to get all the post of the author
-postSchema.statics.getAuthotPost = async function(authorId){
-    if(!authorId){
-        throw new Error("Author id is required")
+postSchema.methods.updateCaption = async function (caption) {
+
+    this.caption = caption;
+    await this.save();
+
+    return this;
+}
+
+postSchema.statics.getRecentPosts = async function (limit, skip = 0) {
+
+    if (!limit) {
+        throw new Error("Limit is required")
     }
 
+    const posts = await this.find().sort({ createdAt: -1 })
+        .limit(limit > 10 ? 10 : limit)
+        .skip(skip)
+        .populate('author');
 
-    const post = await this.find({author: authorId}) /// this is used to get all the post of the author 
-    return post
+    return posts;
+
 }
 
+postSchema.statics.isValidPostId = async function (postId) {
 
-// this method is used to update the caption of the post
-postSchema.methods.updateCaption = async function(caption){
-
-    this.caption = caption
-    await this.save()
-    return this
-}
-
-postSchema.methods.setRecentPost = async (limit)=>{
-     if(!limit){
-            throw new Error("limit is required")
-     }  
-    const post = await this.find().sort({createdAt:-1}).limit(1)
-    ///this.find() → Retrieves all posts.
-    //.sort({ createdAt: -1 }) → Sorts posts in descending order (newest first).
-    //.limit(1) → Gets only one post (the most recent one).
-    
-    
-    return post
-}
-
-
-postSchema.statics.isValidPostId = async(postId)=>{
-    console.log(postId)
-    if(!postId){
-        throw new Error("post is required");  
+    if (!postId) {
+        throw new Error("Post is required")
     }
 
-    const isValidPostId = mongoose.Types.ObjectId.isValid(postId)
+    const isValidPostId = mongoose.Types.ObjectId.isValid(postId);
 
     return isValidPostId;
+
 }
 
-postSchema.method.updateLikesCount = as
+postSchema.methods.incrementLikeCount = async function () {
 
-const postModel = mongoose.model('post',postSchema)
+    this.likesCount += 1;
+    await this.save();
+    return this;
 
-export default postModel
+}
+
+postSchema.methods.decrementLikeCount = async function () {
+
+    this.likesCount -= 1;
+    await this.save();
+    return this;
+
+}
+
+postSchema.methods.incrementCommentCount = async function () {
+
+    this.commentsCount += 1;  ///this. well give you the current post object and then you can access the commentsCount property and increment it by 1
+    await this.save();
+    return this;
+
+}
+
+postSchema.methods.decrementCommentCount = async function () {
+
+    this.commentsCount -= 1;
+    await this.save();
+    return this;
+}
+
+const postModel = mongoose.model("post", postSchema);
+
+
+export default postModel;

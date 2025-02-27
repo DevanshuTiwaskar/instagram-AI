@@ -13,12 +13,20 @@ router.post('/create',
     postController.createPost
 )
 
+router.get('/get-all',
+    userMiddleware.authUser,
+    postController.getAllPosts
+)
 
 router.patch('/like/:postId',
     userMiddleware.authUser,
     postController.likePost
 )
 
+router.patch('/removeLike/:postId',
+    userMiddleware.authUser,
+    postController.removeLikePost
+)
 
 
 export default router;
